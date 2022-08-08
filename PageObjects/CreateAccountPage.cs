@@ -132,17 +132,7 @@ namespace TestProject1.PageObjects
             getRegisterBtn().Click();
             return new CustomerPage(driver);
 
-
-            //getMaleRadioBtn().Click();
-            //getFirstName().SendKeys("pera");
-            //getLastName().SendKeys("peric");
-            //getPassword().SendKeys("12345");
-            //getAddress().SendKeys("ILR 55");
-            //getCity().SendKeys("LA");
-            //getCaliforniaState().Click();
-            //getPostalCode().SendKeys("55555");
-            //getMobilePhone().SendKeys("555-444");
-            //getRegisterBtn().Click();
+    
         }
     }
 }

@@ -13,41 +13,48 @@ namespace TestProject1
     public class Tests : Base
     {
         [Test]
-        public void Test1() 
+        public void Test1()
         {
             HomePage homePage = new HomePage(getDriver());
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
             string ActualBtn = homePage.getSignInBtn().GetAttribute("title");
             string ExpectedBtn = "Log in to your customer account";
             Assert.That(ActualBtn, Is.EqualTo(ExpectedBtn));  //assert that "SignIn" button is displayed
-            
-            homePage.signIn(); 
 
             AuthenticationPage authPage = homePage.signIn();
+            Assert.That(authPage.getLogInPageTitle().Displayed, Is.True);
+        }
 
-            string ExpectedUrl = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
-            Assert.That(driver.Url, Is.EqualTo(ExpectedUrl)); //assert that authentication page is displayed
-            Assert.That(authPage.getAuthenticationHeading().Displayed, Is.EqualTo(true));
-
-
+        [Test]
+        public void Test2()
+        {
             //TEST CASE - CREATE ACC. WITH INVALID CREDENTIALS
+            HomePage homePage = new HomePage(getDriver());
+            AuthenticationPage authPage = homePage.signIn();
             authPage.createAccount("nnnnn");
             var alarm = authPage.getInvalidEmailMsg();
             Assert.That(alarm.Displayed, Is.True); //assert that an error message is displayed
+            authPage.getCreateAccEmailInput().Clear();
+        }
 
+        [Test]
+        public void Test3()
+        {
             //TEST CASE - CREATE ACC. WITH VALID EMAIL
-            authPage.getCreateAccEmailInput().Clear();     
+            HomePage homePage = new HomePage(getDriver());
+            AuthenticationPage authPage = homePage.signIn();
+
             CreateAccountPage createPage = authPage.createAccount("nnn@nn.nnn");
-            
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
             wait.Until(ExpectedConditions.UrlContains("account-creation"));
             string ActualForm = createPage.getCreateFormHeading().Text;
             string ExpectedForm = "CREATE AN ACCOUNT";
             Assert.That(ActualForm, Is.EqualTo(ExpectedForm));  //assert that account creation form is displayed
             Assert.That(driver.Url, Is.EqualTo("http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation")); 
-
         }
+
         [Test]
-        public void Test2()
+        public void Test4()
         {
             HomePage homePage = new HomePage(getDriver());
             AuthenticationPage authPage = homePage.signIn();

@@ -16,6 +16,14 @@ namespace TestProject1.PageObjects
             this.driver = driver;
             PageFactory.InitElements(driver, this);
         }
+        [FindsBy(How = How.XPath, Using = "/html/head/title")]
+        private IWebElement logInPageTitle;
+
+        public IWebElement getLogInPageTitle()
+        {
+            return logInPageTitle;
+        }
+
 
         //ATHENTICATION HEADING
         [FindsBy(How = How.XPath, Using = "//h1[@class='page-heading']")]

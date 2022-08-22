@@ -21,7 +21,7 @@ namespace TestProject1.PageObjects
         [FindsBy(How = How.XPath, Using = "//a[@title='Log me out']")]
         private IWebElement signOutBtn; 
 
-        public IWebElement getSignOutBtn()
+        public IWebElement GetSignOutBtn()
         {
             return signOutBtn;
         }

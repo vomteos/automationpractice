@@ -21,14 +21,14 @@ namespace TestProject1.PageObjects
         [FindsBy(How = How.PartialLinkText, Using = "Sign in")]
         private IWebElement signInBtn; 
 
-        public IWebElement getSignInBtn()
+        public IWebElement GetSignInBtn()
         {
             return signInBtn;
         }
 
-        public AuthenticationPage signIn()
+        public AuthenticationPage SignIn()
         {
-            getSignInBtn().Click();
+            GetSignInBtn().Click();
             return new AuthenticationPage(driver);
 
         }

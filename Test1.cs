@@ -17,12 +17,11 @@ namespace TestProject1
         {
             HomePage homePage = new HomePage(getDriver());
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-            string ActualBtn = homePage.getSignInBtn().GetAttribute("title");
-            string ExpectedBtn = "Log in to your customer account";
-            Assert.That(ActualBtn, Is.EqualTo(ExpectedBtn));  //assert that "SignIn" button is displayed
+            IWebElement ActualBtn = homePage.GetSignInBtn().;
+            Assert.IsTrue(ActualBtn.Displayed);  //assert that "SignIn" button is displayed
 
-            AuthenticationPage authPage = homePage.signIn();
-            Assert.That(authPage.getLogInPageTitle().Displayed, Is.True);
+            AuthenticationPage authPage = homePage.SignIn();
+            Assert.AreEqual(authPage.GetLogInPageTitle(), "Login - My Store");
         }
 
         [Test]
@@ -30,11 +29,11 @@ namespace TestProject1
         {
             //TEST CASE - CREATE ACC. WITH INVALID CREDENTIALS
             HomePage homePage = new HomePage(getDriver());
-            AuthenticationPage authPage = homePage.signIn();
-            authPage.createAccount("nnnnn");
-            var alarm = authPage.getInvalidEmailMsg();
-            Assert.That(alarm.Displayed, Is.True); //assert that an error message is displayed
-            authPage.getCreateAccEmailInput().Clear();
+            AuthenticationPage authPage = homePage.SignIn();
+            authPage.CreateAccount("nnnnn");
+            var alarm = authPage.GetInvalidEmailMsg();
+            Assert.IsTrue(alarm.Displayed); //assert that an error message is displayed
+            authPage.GetCreateAccEmailInput().Clear();
         }
 
         [Test]
@@ -42,33 +41,33 @@ namespace TestProject1
         {
             //TEST CASE - CREATE ACC. WITH VALID EMAIL
             HomePage homePage = new HomePage(getDriver());
-            AuthenticationPage authPage = homePage.signIn();
+            AuthenticationPage authPage = homePage.SignIn();
 
-            CreateAccountPage createPage = authPage.createAccount("nnn@nn.nnn");
+            CreateAccountPage createPage = authPage.CreateAccount("nnn@nn.nnn");
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
             wait.Until(ExpectedConditions.UrlContains("account-creation"));
-            string ActualForm = createPage.getCreateFormHeading().Text;
+            string ActualForm = createPage.GetCreateFormHeading().Text;
             string ExpectedForm = "CREATE AN ACCOUNT";
-            Assert.That(ActualForm, Is.EqualTo(ExpectedForm));  //assert that account creation form is displayed
-            Assert.That(driver.Url, Is.EqualTo("http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation")); 
+            Assert.AreEqual(ActualForm, ExpectedForm);  //assert that account creation form is displayed
+            Assert.AreEqual(driver.Url, "http://automationpractice.com/index.php?controller=authentication&back=my-account#account-creation"); 
         }
 
         [Test]
         public void Test4()
         {
             HomePage homePage = new HomePage(getDriver());
-            AuthenticationPage authPage = homePage.signIn();
+            AuthenticationPage authPage = homePage.SignIn();
             
-            CreateAccountPage createPage = authPage.createAccount("nnn@nn.nnn");
+            CreateAccountPage createPage = authPage.CreateAccount("nnn@nn.nnn");
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
             wait.Until(ExpectedConditions.UrlContains("account-creation"));
-            Assert.That(createPage.getCreateFormHeading().Text, Is.EqualTo("CREATE AN ACCOUNT"));
-            IWebElement maleBtn = createPage.getMaleRadioBtn();
-            Assert.That(maleBtn.Enabled, Is.EqualTo(true));
-            Assert.That(maleBtn.Selected, Is.EqualTo(false));
+            Assert.AreEqual(createPage.GetCreateFormHeading().Text, "CREATE AN ACCOUNT");
+            IWebElement maleBtn = createPage.GetMaleRadioBtn();
+            Assert.IsTrue(maleBtn.Enabled);
+            Assert.IsFalse(maleBtn.Selected);
 
-            CustomerPage customerPage = createPage.validAccCreation("pera", "peric", "12345", "ILR 55", "LA", "55555", "555-444");
-            Assert.That(customerPage.getSignOutBtn().Displayed, Is.True);
+            CustomerPage customerPage = createPage.ValidAccCreation("pera", "peric", "12345", "ILR 55", "LA", "55555", "555-444");
+            Assert.IsTrue(customerPage.GetSignOutBtn().Displayed);
         }
     }
 }

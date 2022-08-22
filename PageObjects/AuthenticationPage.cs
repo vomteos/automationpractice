@@ -19,9 +19,9 @@ namespace TestProject1.PageObjects
         [FindsBy(How = How.XPath, Using = "/html/head/title")]
         private IWebElement logInPageTitle;
 
-        public IWebElement getLogInPageTitle()
+        public string GetLogInPageTitle()
         {
-            return logInPageTitle;
+            return driver.Title;
         }
 
 
@@ -29,7 +29,7 @@ namespace TestProject1.PageObjects
         [FindsBy(How = How.XPath, Using = "//h1[@class='page-heading']")]
         private IWebElement authenticationHeading; 
 
-        public IWebElement getAuthenticationHeading()
+        public IWebElement GetAuthenticationHeading()
         {
             return authenticationHeading;
         }
@@ -38,7 +38,7 @@ namespace TestProject1.PageObjects
         [FindsBy(How = How.XPath, Using = "//input[@id='email_create']")]
         private IWebElement createAccEmailInput;
 
-        public IWebElement getCreateAccEmailInput()
+        public IWebElement GetCreateAccEmailInput()
         {
             return createAccEmailInput;
         }
@@ -47,7 +47,7 @@ namespace TestProject1.PageObjects
         [FindsBy(How = How.XPath, Using = "//button[@id='SubmitCreate']")]
         private IWebElement createAccBtn;
 
-        public IWebElement getCreateAccBtn()
+        public IWebElement GetCreateAccBtn()
         {
             return createAccBtn;
         }
@@ -56,7 +56,7 @@ namespace TestProject1.PageObjects
         [FindsBy(How = How.XPath, Using = "//li[contains(text(),'Invalid email')]")]
         private IWebElement invalidEmailMsg;
 
-        public IWebElement getInvalidEmailMsg()
+        public IWebElement GetInvalidEmailMsg()
         {
             return invalidEmailMsg;
         }
@@ -65,7 +65,7 @@ namespace TestProject1.PageObjects
         [FindsBy(How = How.XPath, Using = "//input[@id='email']")]
         private IWebElement signInEmailInput;
 
-        public IWebElement getSignInEmailInput()
+        public IWebElement GetSignInEmailInput()
         {
             return signInEmailInput;
         }
@@ -74,7 +74,7 @@ namespace TestProject1.PageObjects
         [FindsBy(How = How.XPath, Using = "//input[@type='password']")]
         private IWebElement signInPasswordInput;
 
-        public IWebElement getSignInPasswordInput()
+        public IWebElement GetSignInPasswordInput()
         {
             return signInPasswordInput;
         }
@@ -83,15 +83,15 @@ namespace TestProject1.PageObjects
         [FindsBy(How = How.XPath, Using = "//button[@id='SubmitLogin']")]
         private IWebElement signInBtn;
 
-        public IWebElement getSignInBtn()
+        public IWebElement GetSignInBtn()
         {
             return signInBtn;
         }
 
-        public CreateAccountPage createAccount(string email)
+        public CreateAccountPage CreateAccount(string email)
         {
-            getCreateAccEmailInput().SendKeys(email);
-            getCreateAccBtn().Click();
+            GetCreateAccEmailInput().SendKeys(email);
+            GetCreateAccBtn().Click();
             return new CreateAccountPage(driver);
         }
 

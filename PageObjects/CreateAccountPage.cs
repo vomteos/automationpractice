@@ -118,7 +118,7 @@ namespace TestProject1.PageObjects
             return registerBtn;
         }
 
-        public CustomerPage ValidAccCreation (string firstName, string lastName, string password, string address, string city, string postalCode, string mobileNumber)
+        public CustomerPage ValidAccCreation (string firstName, string lastName, string password, string address, string city, string postalCode, string mobilePhone)
         {
             GetMaleRadioBtn().Click();
             GetFirstName().SendKeys(firstName);
@@ -128,7 +128,7 @@ namespace TestProject1.PageObjects
             GetCity().SendKeys(city);
             GetCaliforniaState().Click();
             GetPostalCode().SendKeys(postalCode);
-            GetMobilePhone().SendKeys(mobileNumber);
+            GetMobilePhone().SendKeys(mobilePhone);
             GetRegisterBtn().Click();
             return new CustomerPage(driver);
 

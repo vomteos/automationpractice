@@ -17,7 +17,7 @@ namespace TestProject1
         {
             HomePage homePage = new HomePage(getDriver());
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
-            IWebElement ActualBtn = homePage.GetSignInBtn().;
+            IWebElement ActualBtn = homePage.GetSignInBtn();
             Assert.IsTrue(ActualBtn.Displayed);  //assert that "SignIn" button is displayed
 
             AuthenticationPage authPage = homePage.SignIn();
@@ -43,7 +43,7 @@ namespace TestProject1
             HomePage homePage = new HomePage(getDriver());
             AuthenticationPage authPage = homePage.SignIn();
 
-            CreateAccountPage createPage = authPage.CreateAccount("nnn@nn.nnn");
+            CreateAccountPage createPage = authPage.CreateAccount("2nnn@nn.nnn");
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
             wait.Until(ExpectedConditions.UrlContains("account-creation"));
             string ActualForm = createPage.GetCreateFormHeading().Text;
@@ -58,10 +58,10 @@ namespace TestProject1
             HomePage homePage = new HomePage(getDriver());
             AuthenticationPage authPage = homePage.SignIn();
             
-            CreateAccountPage createPage = authPage.CreateAccount("nnn@nn.nnn");
+            CreateAccountPage createPage = authPage.CreateAccount("2nnn@nn.nnn");
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
             wait.Until(ExpectedConditions.UrlContains("account-creation"));
-            Assert.AreEqual(createPage.GetCreateFormHeading().Text, "CREATE AN ACCOUNT");
+            Assert.AreEqual("CREATE AN ACCOUNT", createPage.GetCreateFormHeading().Text);
             IWebElement maleBtn = createPage.GetMaleRadioBtn();
             Assert.IsTrue(maleBtn.Enabled);
             Assert.IsFalse(maleBtn.Selected);
